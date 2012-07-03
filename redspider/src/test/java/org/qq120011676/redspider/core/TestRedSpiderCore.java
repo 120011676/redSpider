@@ -1,7 +1,7 @@
 package org.qq120011676.redspider.core;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.qq120011676.redspider.entity.ComputerAddrEnity;
@@ -13,7 +13,7 @@ public class TestRedSpiderCore {
 	public void saveIp() throws IOException {
 		String text = new RedSpiderCore().call(
 				"http://www.sooip.cn/guoneidaili/2012-06-26/2881.html", "113.106.48.103", 80);
-		List<ComputerAddrEnity> computerAddrs = ContentAnalysisUtils
+		Set<ComputerAddrEnity> computerAddrs = ContentAnalysisUtils
 				.queryComputerAddrEnity(text);
 		for (ComputerAddrEnity computerAddrEnity : computerAddrs) {
 			System.out.println(computerAddrEnity.getHost());

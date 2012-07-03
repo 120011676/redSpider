@@ -20,7 +20,7 @@ public class RedSpiderCore {
 			String line = null;
 			StringBuffer sb = new StringBuffer();
 			while ((line = reader.readLine()) != null) {
-				sb.append(line).append("\r\n");
+				sb.append(line);
 			}
 			reader.close();
 			connection.disconnect();

@@ -19,7 +19,15 @@ public class ContentAnalysisUtils {
 		Matcher matcher = pattern.matcher(text);
 		while (matcher.find()) {
 			ComputerAddrEnity computerAddr = new ComputerAddrEnity();
-			computerAddr.setHost(matcher.group());
+			String ipAndPort = matcher.group();
+			int i = ipAndPort.indexOf(" ");
+			if (i >= 0) {
+				computerAddr.setHost(ipAndPort.substring(0, i));
+				computerAddr.setPort(Integer.parseInt(ipAndPort.substring(
+						i + 1, ipAndPort.length())));
+			} else {
+				computerAddr.setHost(ipAndPort);
+			}
 			computerAddrs.add(computerAddr);
 		}
 		return computerAddrs;

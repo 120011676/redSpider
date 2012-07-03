@@ -13,29 +13,31 @@ import java.net.URL;
 
 public class RedSpiderCore {
 
-	public String call(String url) throws IOException {
-		return this.call(this.getHttpURLConnection(url));
+	public static String call(String url) throws IOException {
+		return RedSpiderCore.call(RedSpiderCore.getHttpURLConnection(url));
 	}
 
-	public String call(String url, String host, int port) throws IOException {
-		return this.call(this.getHttpURLConnection(url, host, port));
+	public static String call(String url, String host, int port)
+			throws IOException {
+		return RedSpiderCore.call(RedSpiderCore.getHttpURLConnection(url, host, port));
 	}
 
-	public int callCode(String url) throws IOException {
-		return this.callCode(url, "", 0);
+	public static int callCode(String url) throws IOException {
+		return RedSpiderCore.callCode(url, "", 0);
 	}
 
-	public int callCode(String url, String host, int port) throws IOException {
-		return this.getHttpURLConnection(url, host, port).getResponseCode();
+	public static int callCode(String url, String host, int port)
+			throws IOException {
+		return RedSpiderCore.getHttpURLConnection(url, host, port).getResponseCode();
 	}
 
-	private HttpURLConnection getHttpURLConnection(String url)
+	private static HttpURLConnection getHttpURLConnection(String url)
 			throws MalformedURLException, IOException {
 		return (HttpURLConnection) new URL(url).openConnection();
 	}
 
-	private HttpURLConnection getHttpURLConnection(String url, String host,
-			int port) throws MalformedURLException, IOException {
+	private static HttpURLConnection getHttpURLConnection(String url,
+			String host, int port) throws MalformedURLException, IOException {
 		HttpURLConnection connection;
 		if (host != null && !"".equals(host.trim())) {
 			Proxy proxy = new Proxy(Type.HTTP,
@@ -47,7 +49,7 @@ public class RedSpiderCore {
 		return connection;
 	}
 
-	private String call(HttpURLConnection connection) throws IOException {
+	private static String call(HttpURLConnection connection) throws IOException {
 		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			InputStream input = connection.getInputStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(

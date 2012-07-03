@@ -8,6 +8,28 @@ public class ComputerAddrEnity {
 
 	private String username;
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return true;
+		} else if (this == obj) {
+			return true;
+		} else if (obj instanceof ComputerAddrEnity) {
+			ComputerAddrEnity computerAddr = (ComputerAddrEnity) obj;
+			if (computerAddr.getHost() != null
+					&& !("".equals(computerAddr.getHost().trim()))
+					&& computerAddr.getHost().equals(this.host)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.host.hashCode();
+	}
+
 	private String password;
 
 	public String getHost() {

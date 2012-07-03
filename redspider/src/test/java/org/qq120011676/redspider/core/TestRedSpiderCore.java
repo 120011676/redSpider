@@ -6,17 +6,39 @@ import java.util.Set;
 import org.junit.Test;
 import org.qq120011676.redspider.entity.ComputerAddrEnity;
 import org.qq120011676.redspider.util.ContentAnalysisUtils;
+import org.qq120011676.redspider.util.ProxyUtils;
+import org.qq120011676.snow.util.FileUtils;
 
 public class TestRedSpiderCore {
+
+	private static final String FILE_NAME = "ip.properties";
 
 	@Test
 	public void saveIp() throws IOException {
 		String text = new RedSpiderCore().call(
-				"http://www.sooip.cn/guoneidaili/2012-06-26/2881.html", "113.106.48.103", 80);
+				"http://www.sooip.cn/guoneidaili/2012-06-26/2881.html",
+				"113.106.48.103", 80);
 		Set<ComputerAddrEnity> computerAddrs = ContentAnalysisUtils
 				.queryComputerAddrEnity(text);
+		String pathname = this.getClass().getResource("/").getPath()
+				+ FILE_NAME;
+		if (FileUtils.isFileOrFolder(pathname)) {
+			FileUtils.createFolder(pathname);
+		}
 		for (ComputerAddrEnity computerAddrEnity : computerAddrs) {
-			System.out.println(computerAddrEnity.getHost());
+			FileUtils.fileWriter(pathname, computerAddrEnity.getHost() + " "
+					+ computerAddrEnity.getPort() + "\r\n");
+		}
+	}
+
+	@Test
+	public void dq() throws IOException {
+		FileUtils.fileReader(this.getClass().getResource("/").getPath()
+				+ FILE_NAME, new ProxyUtils());
+		for (ComputerAddrEnity computerAddrEnity : ProxyUtils
+				.getComputerAddrs()) {
+			System.out.println(computerAddrEnity.getHost() + " "
+					+ computerAddrEnity.getPort());
 		}
 	}
 

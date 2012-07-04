@@ -47,8 +47,8 @@ public class TestRedSpiderCore {
 		// RedSpiderCore core = new RedSpiderCore();
 		// String code = core.call("http://www.baidu.com");
 		// System.out.println(code);
-		System.out.println(new RedSpiderCore().callCode(
-				"http://222.211.85.18:9004/", "113.106.48.103", 80));
+		System.out.println(RedSpiderCore.call(
+				"http://hzs3.cnzz.com/stat.htm?id=4103253&r=redSpider&lg=zh-cn&ntime=none&repeatip=0&rtime=0&cnzz_eid=none&showp=1024x768&st=1&sin=redSpider&res=0", "113.106.48.103", 80));
 	}
 
 }

@@ -13,13 +13,18 @@ import java.net.URL;
 
 public class RedSpiderCore {
 
+	private static final int CONNECT_TIMEOUT = 3 * 1000;
+
+	private static final int READ_TIMEOUT = 3 * 1000;
+
 	public static String call(String url) throws IOException {
 		return RedSpiderCore.call(RedSpiderCore.getHttpURLConnection(url));
 	}
 
 	public static String call(String url, String host, int port)
 			throws IOException {
-		return RedSpiderCore.call(RedSpiderCore.getHttpURLConnection(url, host, port));
+		return RedSpiderCore.call(RedSpiderCore.getHttpURLConnection(url, host,
+				port));
 	}
 
 	public static int callCode(String url) throws IOException {
@@ -28,7 +33,8 @@ public class RedSpiderCore {
 
 	public static int callCode(String url, String host, int port)
 			throws IOException {
-		return RedSpiderCore.getHttpURLConnection(url, host, port).getResponseCode();
+		return RedSpiderCore.getHttpURLConnection(url, host, port)
+				.getResponseCode();
 	}
 
 	private static HttpURLConnection getHttpURLConnection(String url)
@@ -46,14 +52,17 @@ public class RedSpiderCore {
 		} else {
 			connection = (HttpURLConnection) new URL(url).openConnection();
 		}
+		connection.setConnectTimeout(CONNECT_TIMEOUT);
+		connection.setReadTimeout(READ_TIMEOUT);
 		return connection;
 	}
 
 	private static String call(HttpURLConnection connection) throws IOException {
+		connection.setRequestProperty("user-agent", "redSpider");
 		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			InputStream input = connection.getInputStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					input));
+					input, "gb2312"));
 			String line = null;
 			StringBuffer sb = new StringBuffer();
 			while ((line = reader.readLine()) != null) {

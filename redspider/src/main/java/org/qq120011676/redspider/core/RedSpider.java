@@ -26,8 +26,18 @@ public class RedSpider {
 		while (iterator.hasNext()) {
 			ComputerAddrEnity computerAddrEnity = (ComputerAddrEnity) iterator
 					.next();
-			int code = RedSpiderCore.callCode(RedSpiderURL.getURLs().get(0),
-					computerAddrEnity.getHost(), computerAddrEnity.getPort());
+			int code = 0;
+			try {
+				code = RedSpiderCore.callCode(RedSpiderURL.getURLs().get(0),
+						computerAddrEnity.getHost(),
+						computerAddrEnity.getPort());
+			} catch (Exception e) {
+				System.out.println("出错了:" + RedSpiderURL.getURLs().get(0) + " "
+						+ computerAddrEnity.getHost() + " "
+						+ computerAddrEnity.getPort());
+				continue;
+			}
+
 			if (code == HttpURLConnection.HTTP_OK) {
 				FileUtils.fileWriter(
 						path + LOG_FILE_NAME,

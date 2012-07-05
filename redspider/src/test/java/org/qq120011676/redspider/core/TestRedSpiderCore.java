@@ -3,6 +3,11 @@ package org.qq120011676.redspider.core;
 import java.io.IOException;
 import java.util.Set;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 import org.junit.Test;
 import org.qq120011676.redspider.entity.ComputerAddrEnity;
 import org.qq120011676.redspider.util.ContentAnalysisUtils;
@@ -47,8 +52,47 @@ public class TestRedSpiderCore {
 		// RedSpiderCore core = new RedSpiderCore();
 		// String code = core.call("http://www.baidu.com");
 		// System.out.println(code);
-		System.out.println(RedSpiderCore.call(
-				"http://hzs3.cnzz.com/stat.htm?id=4103253&r=redSpider&lg=zh-cn&ntime=none&repeatip=0&rtime=0&cnzz_eid=none&showp=1024x768&st=1&sin=redSpider&res=0", "113.106.48.103", 80));
+
+		//
+		// http://hzs3.cnzz.com/stat.htm?id=4103253&r=&lg=zh-cn&ntime=1341334151&repeatip=2&rtime=2&cnzz_eid=65205928-1341073796-&showp=1366x768&st=48540&sin=&res=0&rnd=762756669
+
+		// System.out
+		// .println(RedSpiderCore
+		// .callCode("http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
+		// "113.106.48.103", 80));
+
+//		System.out
+//				.println(RedSpiderCore
+//						.call("http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
+//								"221.7.228.138", 80));
+
+		FileUtils
+				.fileStreamWrite(
+						"G:\\新建文件夹 (2)\\FreeKaraoke_3323_6.4.0331_minor0.exe",
+						RedSpiderCore
+								.callInputStream(
+										"http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
+										"221.7.228.138", 80));
+	}
+
+	@Test
+	public void web() throws IOException {
+		Runtime.getRuntime().exec("explorer.exe http://www.qq.com");
+	}
+
+	@Test
+	public void js() throws IOException, ScriptException {
+		http: // www.51mike.com/idxexedown.do?minor=365&sid=431383&clickid=38616485007
+		System.out
+				.println(RedSpiderCore
+						.call("http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007"));
+		ScriptEngineManager manager = new ScriptEngineManager();
+		ScriptEngine engine = manager.getEngineByName("javascript");
+		// ScriptEngine engine =manager.getEngineByExtension("js");
+		// engine.eval(RedSpiderCore
+		// .call("http://s19.cnzz.com/stat.php?id=4295816&web_id=4295816"));
+		// Invocable invocable = (Invocable) engine;
+		// invocable.
 	}
 
 }

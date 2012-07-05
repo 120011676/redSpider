@@ -9,13 +9,17 @@ import org.qq120011676.redspider.util.ProxyUtils;
 import org.qq120011676.redspider.util.RedSpiderURL;
 import org.qq120011676.snow.util.FileUtils;
 
-public class RedSpider {
+public class RedSpider extends Thread {
 
 	private static final String URL_FILE_NAME = "url.properties";
 
 	private static final String IP_FILE_NAME = "ip.properties";
 
 	private static final String LOG_FILE_NAME = "log.properties";
+
+	@Override
+	public void run() {
+	}
 
 	public static void runVisit() throws IOException {
 		String path = RedSpider.class.getResource("/").getPath();

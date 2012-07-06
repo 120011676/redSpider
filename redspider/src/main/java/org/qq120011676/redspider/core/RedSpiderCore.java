@@ -28,41 +28,47 @@ public class RedSpiderCore {
 				host, port));
 	}
 
+	public static void call(String url,
+			IRedSpiderInputStreamRead redSpiderInputStreamRead)
+			throws IOException {
+		HttpURLConnection httpURLConnection = RedSpiderCore
+				.getHttpURLConnection(url);
+		InputStream inputStream = RedSpiderCore
+				.getInputStream(httpURLConnection);
+		if (inputStream != null) {
+			redSpiderInputStreamRead.readInputStream(inputStream);
+		}
+		close(null, inputStream, httpURLConnection);
+	}
+
 	public static int callCode(String url) throws IOException {
 		return RedSpiderCore.callCode(url, null, 0);
 	}
 
 	public static int callCode(String url, String host, int port)
 			throws IOException {
-		return RedSpiderCore.getHttpURLConnection(url, host, port)
-				.getResponseCode();
+		HttpURLConnection httpURLConnection = RedSpiderCore
+				.getHttpURLConnection(url, host, port);
+		int responseCode = httpURLConnection.getResponseCode();
+		close(null, null, httpURLConnection);
+		return responseCode;
 	}
 
-	public static InputStream callInputStream(String url) throws IOException {
-		return RedSpiderCore.getInputStream(RedSpiderCore.getHttpURLConnection(
-				url, null, 0));
-	}
-
-	public static InputStream callInputStream(String url, String host, int port)
-			throws IOException {
-		return RedSpiderCore.getInputStream(RedSpiderCore.getHttpURLConnection(
-				url, host, port));
-	}
-
-	private static HttpURLConnection getHttpURLConnection(String url)
+	public static HttpURLConnection getHttpURLConnection(String url)
 			throws MalformedURLException, IOException {
-		return (HttpURLConnection) new URL(url).openConnection();
+		return getHttpURLConnection(url, null, 0);
 	}
 
-	private static HttpURLConnection getHttpURLConnection(String url,
+	public static HttpURLConnection getHttpURLConnection(String url,
 			String host, int port) throws MalformedURLException, IOException {
 		HttpURLConnection connection;
+		URL u = new URL(url);
 		if (host != null && !"".equals(host.trim())) {
 			Proxy proxy = new Proxy(Type.HTTP,
 					new InetSocketAddress(host, port));
-			connection = (HttpURLConnection) new URL(url).openConnection(proxy);
+			connection = (HttpURLConnection) u.openConnection(proxy);
 		} else {
-			connection = (HttpURLConnection) new URL(url).openConnection();
+			connection = (HttpURLConnection) u.openConnection();
 		}
 		connection.setConnectTimeout(CONNECT_TIMEOUT);
 		connection.setReadTimeout(READ_TIMEOUT);
@@ -70,10 +76,14 @@ public class RedSpiderCore {
 		return connection;
 	}
 
-	private static String getContent(HttpURLConnection connection)
+	public static String getContent(HttpURLConnection httpURLConnection)
 			throws IOException {
-		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-			return getContent(connection.getInputStream());
+		if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+			try {
+				return getContent(httpURLConnection.getInputStream());
+			} finally {
+				close(null, null, httpURLConnection);
+			}
 		}
 		return null;
 	}
@@ -81,22 +91,34 @@ public class RedSpiderCore {
 	private static InputStream getInputStream(HttpURLConnection connection)
 			throws IOException {
 		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-			System.out.println(connection.getURL());
 			return connection.getInputStream();
 		}
 		return null;
 	}
 
-	private static String getContent(InputStream InputStream)
-			throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				InputStream));
+	public static String getContent(InputStream inputStream) throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(inputStream));
 		String line = null;
-		StringBuffer sb = new StringBuffer();
-		while ((line = reader.readLine()) != null) {
-			sb.append(line).append("\r");
+		StringBuffer stringBuffer = new StringBuffer();
+		while ((line = bufferedReader.readLine()) != null) {
+			stringBuffer.append(line);
 		}
-		reader.close();
-		return sb.toString();
+		close(bufferedReader, inputStream, null);
+		return stringBuffer.toString();
+	}
+
+	public static void close(BufferedReader bufferedReader,
+			InputStream inputStream, HttpURLConnection httpURLConnection)
+			throws IOException {
+		if (bufferedReader != null) {
+			bufferedReader.close();
+		}
+		if (inputStream != null) {
+			inputStream.close();
+		}
+		if (httpURLConnection != null) {
+			httpURLConnection.disconnect();
+		}
 	}
 }

@@ -74,13 +74,13 @@ public class TestRedSpiderCore {
 		if (FileUtils.isFileOrFolder(pathname)) {
 			FileUtils.deleteFileOrFolder(pathname);
 		}
-		FileUtils
-				.fileStreamWrite(
-						"G:\\新建文件夹 (2)\\FreeKaraoke_3323_6.4.0331_minor0.exe",
-						RedSpiderCore
-								.callInputStream(
-										"http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
-										host, port));
+//		FileUtils
+//				.fileStreamWrite(
+//						"G:\\新建文件夹 (2)\\FreeKaraoke_3323_6.4.0331_minor0.exe",
+//						RedSpiderCore
+//								.callInputStream(
+//										"http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
+//										host, port));
 	}
 
 	@Test

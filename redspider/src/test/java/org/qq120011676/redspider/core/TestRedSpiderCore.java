@@ -61,18 +61,26 @@ public class TestRedSpiderCore {
 		// .callCode("http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
 		// "113.106.48.103", 80));
 
-//		System.out
-//				.println(RedSpiderCore
-//						.call("http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
-//								"221.7.228.138", 80));
+		// System.out
+		// .println(RedSpiderCore
+		// .call("http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
+		// "221.7.228.138", 80));
 
+		String host = "115.236.98.109";
+		int port = 80;
+		System.out.println(RedSpiderCore.callCode("http://count.chanet.com.cn/click.cgi?a=431383&d=76014&u=&e=", host,
+				port));
+		String pathname = "G:\\新建文件夹 (2)\\FreeKaraoke_3323_6.4.0331_minor0.exe";
+		if (FileUtils.isFileOrFolder(pathname)) {
+			FileUtils.deleteFileOrFolder(pathname);
+		}
 		FileUtils
 				.fileStreamWrite(
 						"G:\\新建文件夹 (2)\\FreeKaraoke_3323_6.4.0331_minor0.exe",
 						RedSpiderCore
 								.callInputStream(
 										"http://www.51mike.com/idxexedown.do?minor=365&amp;sid=431383&amp;clickid=38616485007",
-										"221.7.228.138", 80));
+										host, port));
 	}
 
 	@Test

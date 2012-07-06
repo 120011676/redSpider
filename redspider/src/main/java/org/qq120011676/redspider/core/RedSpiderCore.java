@@ -81,6 +81,7 @@ public class RedSpiderCore {
 	private static InputStream getInputStream(HttpURLConnection connection)
 			throws IOException {
 		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+			System.out.println(connection.getURL());
 			return connection.getInputStream();
 		}
 		return null;

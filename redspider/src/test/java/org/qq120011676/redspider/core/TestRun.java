@@ -42,7 +42,7 @@ public class TestRun {
 		// url.add("http://www.soso.com");
 		// }
 		try {
-			new RedSpider().runVisit(url, new IRedSpiderInputStreamRead() {
+			RedSpider.runVisit(url, new IRedSpiderInputStreamRead() {
 
 				@Override
 				public void readInputStream(InputStream inputStream) {

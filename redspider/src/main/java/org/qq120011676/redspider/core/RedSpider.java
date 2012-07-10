@@ -1,14 +1,15 @@
 package org.qq120011676.redspider.core;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class RedSpider {
 
 	private static class RedSpiderThread extends Thread {
 
-		private volatile static List<String> URLS;
+		private volatile static Set<String> URLS;
 
 		private static IRedSpiderInputStreamRead RED_SPIDER_INPUT_STREAM_READ;
 
@@ -19,8 +20,11 @@ public class RedSpider {
 				if (URLS.size() == 0) {
 					return;
 				}
-				url = URLS.get(0);
-				URLS.remove(0);
+				Iterator<String> iterator = URLS.iterator();
+				if (iterator.hasNext()) {
+					url = iterator.next();
+					URLS.remove(url);
+				}
 			}
 			try {
 				RedSpiderCore.call(url, RED_SPIDER_INPUT_STREAM_READ);
@@ -32,7 +36,7 @@ public class RedSpider {
 		}
 	}
 
-	public static void runVisit(List<String> urls,
+	public static void runVisit(Set<String> urls,
 			IRedSpiderInputStreamRead redSpiderInputStreamRead)
 			throws IOException {
 		RedSpiderThread.URLS = urls;

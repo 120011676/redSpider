@@ -102,7 +102,7 @@ public class RedSpiderCore {
 		String line = null;
 		StringBuffer stringBuffer = new StringBuffer();
 		while ((line = bufferedReader.readLine()) != null) {
-			stringBuffer.append(line);
+			stringBuffer.append(line).append("\r\n");
 		}
 		close(bufferedReader, inputStream, null);
 		return stringBuffer.toString();

@@ -10,6 +10,8 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.Proxy.Type;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RedSpiderCore {
 
@@ -33,10 +35,22 @@ public class RedSpiderCore {
 			throws IOException {
 		HttpURLConnection httpURLConnection = RedSpiderCore
 				.getHttpURLConnection(url);
-		InputStream inputStream = RedSpiderCore
-				.getInputStream(httpURLConnection);
-		if (inputStream != null) {
-			redSpiderInputStreamRead.readInputStream(inputStream);
+		InputStream inputStream = null;
+		String contentType = httpURLConnection.getContentType();
+		if (contentType.startsWith("text/html")) {
+			Matcher charsetMatcher = Pattern.compile("charset=\\w+").matcher(
+					contentType);
+			StringBuilder charset = new StringBuilder("gb2312");
+			if (charsetMatcher.find()) {
+				charset.delete(0, charset.length());
+				charset.append(charsetMatcher.group());
+				charset.delete(0, charset.indexOf("=") + 1);
+			}
+			inputStream = RedSpiderCore.getInputStream(httpURLConnection);
+			if (inputStream != null) {
+				redSpiderInputStreamRead.readContent(RedSpiderCore.getContent(
+						inputStream, charset.toString()));
+			}
 		}
 		close(null, inputStream, httpURLConnection);
 	}
@@ -91,9 +105,6 @@ public class RedSpiderCore {
 	private static InputStream getInputStream(HttpURLConnection connection)
 			throws IOException {
 		if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-			System.out.println(connection.getContentType());
-			//System.out.println(connection.getRequestProperties());
-			System.out.println(connection.getHeaderFields());
 			return connection.getInputStream();
 		}
 		return null;
@@ -102,6 +113,19 @@ public class RedSpiderCore {
 	public static String getContent(InputStream inputStream) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(inputStream));
+		String line = null;
+		StringBuffer stringBuffer = new StringBuffer();
+		while ((line = bufferedReader.readLine()) != null) {
+			stringBuffer.append(line).append("\r\n");
+		}
+		close(bufferedReader, inputStream, null);
+		return stringBuffer.toString();
+	}
+
+	public static String getContent(InputStream inputStream, String charset)
+			throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(inputStream, charset));
 		String line = null;
 		StringBuffer stringBuffer = new StringBuffer();
 		while ((line = bufferedReader.readLine()) != null) {

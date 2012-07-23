@@ -5,7 +5,7 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/WisdomHouseLibs/junitLib/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="G:/新建文件夹/org.qq120011676.snow-0.4.beta5.jar"/>
+	<classpathentry kind="lib" path="/AutoShowManager/WebContent/WEB-INF/lib/org.qq120011676.snow-0.4.beta6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

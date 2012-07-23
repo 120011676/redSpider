@@ -29,19 +29,22 @@ public class RedSpider {
 			try {
 				RedSpiderCore.call(url, RED_SPIDER_INPUT_STREAM_READ);
 			} catch (IOException e) {
-				Logger.getLogger(this.getClass().getName() + " 出错了，url：" + url);
+				Logger.getLogger("error:url：" + url);
 			} finally {
 				this.run();
 			}
 		}
 	}
 
-	public static void runVisit(Set<String> urls,
+	public static void runVisit(Set<String> urls, int threadCount,
 			IRedSpiderInputStreamRead redSpiderInputStreamRead)
 			throws IOException {
+		if (threadCount <= 0) {
+			throw new RuntimeException("error:threadCount Not less than 0");
+		}
 		RedSpiderThread.URLS = urls;
 		RedSpiderThread.RED_SPIDER_INPUT_STREAM_READ = redSpiderInputStreamRead;
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < threadCount; i++) {
 			new RedSpiderThread().start();
 		}
 	}

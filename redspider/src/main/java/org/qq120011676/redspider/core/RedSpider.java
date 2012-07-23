@@ -40,7 +40,7 @@ public class RedSpider {
 			IRedSpiderInputStreamRead redSpiderInputStreamRead)
 			throws IOException {
 		if (threadCount <= 0) {
-			throw new RuntimeException("error:threadCount Not less than 0");
+			throw new RuntimeException("error:threadCount not less than 0");
 		}
 		RedSpiderThread.URLS = urls;
 		RedSpiderThread.RED_SPIDER_INPUT_STREAM_READ = redSpiderInputStreamRead;

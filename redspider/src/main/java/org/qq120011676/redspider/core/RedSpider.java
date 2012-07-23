@@ -11,7 +11,7 @@ public class RedSpider {
 
 		private volatile static Set<String> URLS;
 
-		private static IRedSpiderInputStreamRead RED_SPIDER_INPUT_STREAM_READ;
+		private static IRedSpiderRead RED_SPIDER_INPUT_STREAM_READ;
 
 		@Override
 		public void run() {
@@ -37,7 +37,7 @@ public class RedSpider {
 	}
 
 	public static void runVisit(Set<String> urls, int threadCount,
-			IRedSpiderInputStreamRead redSpiderInputStreamRead)
+			IRedSpiderRead redSpiderInputStreamRead)
 			throws IOException {
 		if (threadCount <= 0) {
 			throw new RuntimeException("error:threadCount not less than 0");

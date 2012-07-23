@@ -31,7 +31,7 @@ public class RedSpiderCore {
 	}
 
 	public static void call(String url,
-			IRedSpiderInputStreamRead redSpiderInputStreamRead)
+			IRedSpiderRead redSpiderInputStreamRead)
 			throws IOException {
 		HttpURLConnection httpURLConnection = RedSpiderCore
 				.getHttpURLConnection(url);

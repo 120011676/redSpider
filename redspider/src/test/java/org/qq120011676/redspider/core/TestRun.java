@@ -23,7 +23,7 @@ public class TestRun {
 		// for (int i = 0; i < 100; i++) {
 		// url.add("http://www.soso.com");
 		// }
-		RedSpider.runVisit(url, 1, new IRedSpiderInputStreamRead() {
+		RedSpider.runVisit(url, 1, new IRedSpiderRead() {
 			@Override
 			public void readContent(String content) {
 				System.out.println(content);
@@ -43,7 +43,7 @@ public class TestRun {
 		// url.add("http://www.soso.com");
 		// }
 		try {
-			RedSpider.runVisit(url, 1, new IRedSpiderInputStreamRead() {
+			RedSpider.runVisit(url, 1, new IRedSpiderRead() {
 
 				@Override
 				public void readContent(String content) {

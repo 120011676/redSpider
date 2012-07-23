@@ -33,8 +33,8 @@ public class TestRun {
 
 	public static void main(String[] args) {
 		Set<String> url = new HashSet<String>();
-		url.add("http://www.baidu.com");
-		// url.add("http://localhost:8080/file/html/1343034726670.html");
+		//url.add("http://www.baidu.com");
+		 url.add("http://localhost:8080/file/html/1343034726670.html");
 		// url.add("http://www.baidu.com");
 		// url.add("http://www.qq.com");
 		// url.add("http://www.google.com");
@@ -43,7 +43,7 @@ public class TestRun {
 		// url.add("http://www.soso.com");
 		// }
 		try {
-			RedSpider.runVisit(url, 0, new IRedSpiderInputStreamRead() {
+			RedSpider.runVisit(url, 1, new IRedSpiderInputStreamRead() {
 
 				@Override
 				public void readContent(String content) {

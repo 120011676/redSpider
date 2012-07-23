@@ -38,7 +38,7 @@ public class RedSpiderCore {
 		InputStream inputStream = null;
 		String contentType = httpURLConnection.getContentType();
 		if (contentType.startsWith("text/html")) {
-			Matcher charsetMatcher = Pattern.compile("charset=\\w+").matcher(
+			Matcher charsetMatcher = Pattern.compile("charset=\\S+").matcher(
 					contentType);
 			StringBuilder charset = new StringBuilder("gb2312");
 			if (charsetMatcher.find()) {

@@ -10,14 +10,11 @@ public class ComputerAddrEnity {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
-			return true;
-		} else if (this == obj) {
+		if (this == obj) {
 			return true;
 		} else if (obj instanceof ComputerAddrEnity) {
 			ComputerAddrEnity computerAddr = (ComputerAddrEnity) obj;
 			if (computerAddr.getHost() != null
-					&& !("".equals(computerAddr.getHost().trim()))
 					&& computerAddr.getHost().equals(this.host)) {
 				return true;
 			}

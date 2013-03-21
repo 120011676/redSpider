@@ -22,4 +22,9 @@ public class RedSpiderTest {
 		System.out.println(new JSONObject(r).getJSONArray("result")
 				.getJSONObject(0).getString("title"));
 	}
+	
+	@Test
+	public void test(){
+		System.out.println("我");
+	}
 }

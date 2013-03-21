@@ -20,4 +20,17 @@
    <scope>test</scope>
   </dependency>
  </dependencies>
+
+ <developers>
+  <developer>
+   <name>Say</name>
+   <email>120011676@qq.com</email>
+  </developer>
+ </developers>
+ <mailingLists>
+  <mailingList>
+   <name>Say</name>
+   <post>120011676@qq.com</post>
+  </mailingList>
+ </mailingLists>
 </project>

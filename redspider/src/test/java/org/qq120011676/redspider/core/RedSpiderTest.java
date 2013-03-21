@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -12,6 +13,7 @@ import org.junit.Test;
  */
 public class RedSpiderTest {
 
+	@Ignore
 	@Test
 	public void get() throws IOException, JSONException {
 		RedSpiderCore redSpiderCore = new RedSpiderCore();
